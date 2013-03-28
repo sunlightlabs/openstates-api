@@ -85,6 +85,16 @@ Methods
     <td> /event/`event_id`/ </td>
     <td> Get full detail for event. </td>
 </tr>
+<tr>
+    <td> [District Search](#methods/district-search) </td>
+    <td> /districts/`state`/[`chamber`/] </td>
+    <td> List districts for state (and optionally filtered by chamber).  </td>
+</tr>
+<tr>
+    <td> [District Boundary Lookup](#methods/district-boundary-lookup) </td>
+    <td> /districts/boundary/`boundary_id`/ </td>
+    <td> Get geographic boundary for a district. </td>
+</tr>
 </table>
 
 Requesting A Custom Fieldset

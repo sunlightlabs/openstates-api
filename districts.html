@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open States API | Districts</title>
+    
+    
+  <link rel="shortcut icon" type="image/ico" href="http://openstates.org/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="documentup.css">
+  <script type="text/javascript" src="//use.typekit.net/egj6wnp.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+  <body><div id="container">
+  <div id="nav">
+    
+      <div id="header">
+        <a href="index.html" id="logo">Open States API</a>
+      </div>
+    
+    <ul id="sections">
+      
+        <li>
+          <a href="#methods">Methods</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#methods/district-search">District Search</a>
+                </li>
+              
+                <li>
+                  <a href="#methods/district-boundary-lookup">District Boundary Lookup</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#examples">Examples</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#examples/district-search">District Search</a>
+                </li>
+              
+                <li>
+                  <a href="#examples/district-boundary-lookup">District Boundary Lookup</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+    
+    
+      <div class="extra twitter">
+        <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=openstates&show_count=false"></iframe></div><div class="thanks">powered by <a href="http://documentup.com">DocumentUp</a></div>
+    
+  </div>
+  <div id="content">
+    
+    <h1>Districts</h1>
+<p>Open States makes it possible to get a listing of all districts or retrieve the boundary of a given district.
+
+</p>
+<p>There are two methods available for district data:
+
+</p>
+<table>
+<tr> <th> Method </th> <th> URL pattern </th> <th> Description </th> </tr>
+<tr>
+    <td> <a href="#methods/district-search">District Search</a> </td>
+    <td> /districts/<code>state</code>/[<code>chamber</code>/] </td>
+    <td> List districts for state (and optionally filtered by chamber).  </td>
+</tr>
+<tr>
+    <td> <a href="#methods/district-boundary-lookup">District Boundary Lookup</a> </td>
+    <td> /districts/boundary/<code>boundary_id</code>/ </td>
+    <td> Get geographic boundary for a district. </td>
+</tr>
+</table>
+
+<h2 id='methods'>Methods</h2 id='methods'>
+<h3 id='methods/district-search'>District Search</h3 id='methods/district-search'>
+<p>The district search method requires a <code>state</code> and can optionally also take a <code>chamber</code> as part of the URL.
+
+</p>
+<p>The method returns a list of district objects with the following fields:
+
+</p>
+<ul>
+<li><code>abbr</code>            State abbreviation.</li>
+<li>`boundary_id``    boundary_id used in <a href="#methods/district-boundary-lookup">District Boundary Lookup</a></li>
+<li><code>chamber</code>         Whether this district belongs to the upper or lower chamber.</li>
+<li><code>id</code>              A unique ID for this district (separate from boundary_id).</li>
+<li><code>legislators</code>     List of legislators that serve in this district.  (may be more than one if <code>num_seats</code> &gt; 1)</li>
+<li><code>name</code>            Name of the district (e.g. &#39;14&#39;, &#39;33A&#39;, &#39;Fifth Suffolk&#39;)</li>
+<li><code>num_seats</code>       Number of legislators that are elected to this seat.  Generally one, but will be 2 or more if the seat is a multi-member district.</li>
+</ul>
+<p><strong>Example:</strong> <a href="#examples/district-search">openstates.org/api/v1/districts/nc/lower/</a>
+
+</p>
+<h3 id='methods/district-boundary-lookup'>District Boundary Lookup</h3 id='methods/district-boundary-lookup'>
+<p>This method returns an full district object, including the boundary given a <code>boundary id</code>.
+
+</p>
+<p>The returned object has the following fields:
+
+</p>
+<ul>
+<li><code>abbr</code>            State abbreviation.</li>
+<li><code>bbox</code>            A bounding box composed of a list of two (long, lat) points.  The first point is the upper left corner, and the second point is the lower right.</li>
+<li>`boundary_id``    boundary_id for this boundary.</li>
+<li><code>chamber</code>         Whether this district belongs to the upper or lower chamber.</li>
+<li><code>id</code>              A unique ID for this district (separate from boundary_id).</li>
+<li><code>name</code>            Name of the district (e.g. &#39;14&#39;, &#39;33A&#39;, &#39;Fifth Suffolk&#39;)</li>
+<li><code>num_seats</code>       Number of legislators that are elected to this seat.  Generally one, but will be 2 or more if the seat is a multi-member district.</li>
+<li><code>region</code>          A dictionary of the following values:<ul>
+<li><code>center_lat</code>  Center latitude of the bounding box.</li>
+<li><code>center_lon</code>  Center longitude of the bounding box.</li>
+<li><code>lat_delta</code>   Equivalent to max(<code>latitude</code>)-min(<code>latitude</code>)</li>
+<li><code>lon_delta</code>   Equivalent to max(<code>longitude</code>)-min(<code>longitude</code>)</li>
+</ul>
+</li>
+<li><code>shape</code>           List of polygons, each of which is a GeoJSON-like list of coordinates describing a single polygon.</li>
+</ul>
+<p><strong>Example:</strong> <a href="#examples/district-boundary-lookup">openstates.org/api/v1/districts/boundary/sldl/nc-120/</a>
+
+</p>
+<h2 id='examples'>Examples</h2 id='examples'>
+<h3 id='examples/district-search'>District Search</h3 id='examples/district-search'>
+<p><code>http://openstates.org/api/v1/districts/nc/lower/</code>
+
+</p>
+<pre><code class="json">[
+ { "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+  "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-1"</span></span>,
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-1"</span></span>,
+  "<span class="attribute">legislators</span>": <span class="value">[
+   { "<span class="attribute">full_name</span>": <span class="value"><span class="string">"Bob Steinburg"</span></span>, "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"NCL000302"</span> </span>}
+  ]</span>,
+  "<span class="attribute">name</span>": <span class="value"><span class="string">"1"</span></span>,
+  "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span> </span>},
+ { "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+  "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-12"</span></span>,
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-12"</span></span>,
+  "<span class="attribute">legislators</span>": <span class="value">[
+   { "<span class="attribute">full_name</span>": <span class="value"><span class="string">"George Graham"</span></span>, "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"NCL000281"</span> </span>}
+  ]</span>,
+  "<span class="attribute">name</span>": <span class="value"><span class="string">"12"</span></span>,
+  "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span> </span>},
+ { "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+  "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-13"</span></span>,
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-13"</span></span>,
+  "<span class="attribute">legislators</span>": <span class="value">[
+   { "<span class="attribute">full_name</span>": <span class="value"><span class="string">"Pat McElraft"</span></span>, "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"NCL000137"</span> </span>}
+  ]</span>,
+  "<span class="attribute">name</span>": <span class="value"><span class="string">"13"</span></span>,
+  "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span> </span>},
+ { "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+  "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-14"</span></span>,
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-14"</span></span>,
+  "<span class="attribute">legislators</span>": <span class="value">[
+   { "<span class="attribute">full_name</span>": <span class="value"><span class="string">"George G Cleveland"</span></span>, "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"NCL000076"</span> </span>}
+  ]</span>,
+  "<span class="attribute">name</span>": <span class="value"><span class="string">"14"</span></span>,
+  "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span> </span>},
+ { "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+  "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-15"</span></span>,
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-15"</span></span>,
+  "<span class="attribute">legislators</span>": <span class="value">[
+   { "<span class="attribute">full_name</span>": <span class="value"><span class="string">"Phil R Shepard"</span></span>, "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"NCL000221"</span> </span>}
+  ]</span>,
+  "<span class="attribute">name</span>": <span class="value"><span class="string">"15"</span></span>,
+  "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span> </span>},
+ ... truncated ...
+]</code></pre>
+<h3 id='examples/district-boundary-lookup'>District Boundary Lookup</h3 id='examples/district-boundary-lookup'>
+<p><code>http://openstates.org/api/v1/districts/boundary/sldl/nc-120/</code>
+
+</p>
+<pre><code class="json">{
+ "<span class="attribute">abbr</span>": <span class="value"><span class="string">"nc"</span></span>,
+ "<span class="attribute">bbox</span>": <span class="value">[
+  [ <span class="number">34.986592</span>, -<span class="number">84.321869</span> ],
+  [ <span class="number">35.466558</span>, -<span class="number">83.108571</span> ]
+ ]</span>,
+ "<span class="attribute">boundary_id</span>": <span class="value"><span class="string">"sldl/nc-120"</span></span>,
+ "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>,
+ "<span class="attribute">id</span>": <span class="value"><span class="string">"nc-lower-120"</span></span>,
+ "<span class="attribute">name</span>": <span class="value"><span class="string">"120"</span></span>,
+ "<span class="attribute">num_seats</span>": <span class="value"><span class="number">1</span></span>,
+ "<span class="attribute">region</span>": <span class="value">{
+  "<span class="attribute">center_lat</span>": <span class="value"><span class="number">35.226575</span></span>,
+  "<span class="attribute">center_lon</span>": <span class="value">-<span class="number">83.71522</span></span>,
+  "<span class="attribute">lat_delta</span>": <span class="value"><span class="number">0.47996599999999745</span></span>,
+  "<span class="attribute">lon_delta</span>": <span class="value"><span class="number">1.2132980000000089</span>
+ </span>}</span>,
+ "<span class="attribute">shape</span>": <span class="value">[
+  [
+   [
+    [ -<span class="number">84.321797</span>, <span class="number">34.988965</span> ],
+    [ -<span class="number">84.308201</span>, <span class="number">35.092843</span> ],
+    [ -<span class="number">84.30696</span>, <span class="number">35.106162</span> ],
+    [ -<span class="number">84.297721</span>, <span class="number">35.169478</span> ],
+    [ -<span class="number">84.294723</span>, <span class="number">35.185594</span> ],
+    [ -<span class="number">84.29024</span>, <span class="number">35.225572</span> ],
+    [ -<span class="number">84.289921</span>, <span class="number">35.225585</span> ],
+    [ -<span class="number">84.290061</span>, <span class="number">35.225257</span> ],
+    [ -<span class="number">84.289621</span>, <span class="number">35.224677</span> ],
+    [ -<span class="number">84.288516</span>, <span class="number">35.224391</span> ],
+    [ -<span class="number">84.28712</span>, <span class="number">35.224877</span> ],
+    [ -<span class="number">84.28512</span>, <span class="number">35.226577</span> ],
+    [ -<span class="number">84.28322</span>, <span class="number">35.226577</span> ],
+    [ -<span class="number">84.28152</span>, <span class="number">35.229277</span> ],
+    [ -<span class="number">84.27792</span>, <span class="number">35.231477</span> ],
+    [ -<span class="number">84.27702</span>, <span class="number">35.233177</span> ],
+    [ -<span class="number">84.27662</span>, <span class="number">35.233277</span> ],
+    ... truncated ..
+   ],
+   ... truncated ...
+  ]
+ ]
+</span>}</code></pre>
+
+  </div>
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'na']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
