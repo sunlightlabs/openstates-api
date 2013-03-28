@@ -66,32 +66,32 @@ Methods
     <td> Lookup all legislators that serve districts containing a given point. </td>
 </tr>
 <tr>
-    <td> [Committee Search](#methods/committee-search) </td>
+    <td> [Committee Search](committees.html#methods/committee-search) </td>
     <td> /committees/ </td>
     <td> Search committees by any of their attributes.  </td>
 </tr>
 <tr>
-    <td> [Committee Detail](#methods/committee-detail) </td>
+    <td> [Committee Detail](committees.html#methods/committee-detail) </td>
     <td> /committees/`committee_id`/ </td>
     <td> Get full detail for committee, including all members. </td>
 </tr>
 <tr>
-    <td> [Event Search](#methods/event-search) </td>
+    <td> [Event Search](events.html#methods/event-search) </td>
     <td> /events/ </td>
     <td> Search events by state and type.  </td>
 </tr>
 <tr>
-    <td> [Event Detail](#methods/event-detail) </td>
+    <td> [Event Detail](events.html#methods/event-detail) </td>
     <td> /event/`event_id`/ </td>
     <td> Get full detail for event. </td>
 </tr>
 <tr>
-    <td> [District Search](#methods/district-search) </td>
+    <td> [District Search](districts.html#methods/district-search) </td>
     <td> /districts/`state`/[`chamber`/] </td>
     <td> List districts for state (and optionally filtered by chamber).  </td>
 </tr>
 <tr>
-    <td> [District Boundary Lookup](#methods/district-boundary-lookup) </td>
+    <td> [District Boundary Lookup](districts.html#methods/district-boundary-lookup) </td>
     <td> /districts/boundary/`boundary_id`/ </td>
     <td> Get geographic boundary for a district. </td>
 </tr>
