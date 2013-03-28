@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open States API | Events</title>
+    
+    
+  <link rel="shortcut icon" type="image/ico" href="http://s3.amazonaws.com/assets.sunlightfoundation.com/brisket/1.0/images/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="documentup.css">
+  <script type="text/javascript" src="//use.typekit.net/egj6wnp.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+  <body><div id="container">
+  <div id="nav">
+    
+      <div id="header">
+        <a href="index.html" id="logo">Open States API</a>
+      </div>
+    
+    <ul id="sections">
+      
+        <li>
+          <a href="#event-fields">Event Fields</a>
+          
+        </li>
+      
+        <li>
+          <a href="#methods">Methods</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#methods/event-search">Event Search</a>
+                </li>
+              
+                <li>
+                  <a href="#methods/event-detail">Event Detail</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#examples">Examples</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#examples/event-search">Event Search</a>
+                </li>
+              
+                <li>
+                  <a href="#examples/event-detail">Event Detail</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+    
+    
+      <div class="extra twitter">
+        <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=openstates&show_count=false"></iframe></div><div class="thanks">powered by <a href="http://documentup.com">DocumentUp</a></div>
+    
+  </div>
+  <div id="content">
+    
+    <h1>Events</h1>
+<p>Events are not available in all states, to ensure that events are available check the <code>feature_flags</code> list in a states&#39; <a href="metadata.html">metadata</a>.
+
+</p>
+<p>There are two methods available for event data:
+
+</p>
+<table>
+<tr> <th> Method </th> <th> URL pattern </th> <th> Description </th> </tr>
+<tr>
+    <td> <a href="#methods/event-search">Event Search</a> </td>
+    <td> /events/ </td>
+    <td> Search events by state and type.  </td>
+</tr>
+<tr>
+    <td> <a href="#methods/event-detail">Event Detail</a> </td>
+    <td> /event/<code>event_id</code>/ </td>
+    <td> Get full detail for event. </td>
+</tr>
+</table>
+
+<h2 id='event-fields'>Event Fields</h2 id='event-fields'>
+<p>The following fields are available on event objects:
+
+</p>
+<ul>
+<li><code>id</code>        Open States assigned event ID.</li>
+<li><code>state</code>     State abbreviation.</li>
+<li><code>type</code>      [Categorized event type.](TODO- categorization link here)</li>
+<li><code>description</code>   Description of event from state source.</li>
+<li><code>documents</code>     List of related documents.</li>
+<li><code>location</code>      Location if known, as given by state (is often just a room number).</li>
+<li><code>when</code>          Time event begins.</li>
+<li><code>end</code>           End time (null if unknown).</li>
+<li><code>timezone</code>      Timezone event occurs in (e.g. &#39;America/Chicago&#39;).</li>
+<li><code>participants</code>  List of participant objects, consisting of the following fields:<ul>
+<li><code>chamber</code>   Chamber of participant.</li>
+<li><code>type</code>      Type of participants (&#39;legislator&#39;, &#39;committee&#39;)</li>
+<li><code>participant</code> String representation of participant (e.g. &#39;Housing Committee&#39;, &#39;Jill Smith&#39;)</li>
+<li><code>id</code>        Open States id for participant if a match was found (e.g. &#39;TXC000150&#39;, &#39;MDL000101&#39;)</li>
+<li><code>type</code>      What role this participant played (e.g. &#39;host&#39;, &#39;speaker&#39;, etc.).</li>
+</ul>
+</li>
+<li><code>related_bills</code> List of related bills for this event.  Comprised of the following fields:<ul>
+<li><code>type</code>        Type of relationship (e.g. &#39;consideration&#39;)</li>
+<li><code>description</code> Description of how the bill is related given by the state.</li>
+<li><code>bill_id</code>   State&#39;s bill id (e.g. &#39;HB 273&#39;)</li>
+<li><code>id</code>        Open States assigned bill id (e.g. &#39;TXB00001234&#39;)</li>
+</ul>
+</li>
+<li><code>sources</code>   List of URLs used in gathering information for this legislator.</li>
+<li><code>created_at</code> The date that this object first appeared in our system.</li>
+<li><code>updated_at</code> The date that this object was last updated in our system.</li>
+</ul>
+<h2 id='methods'>Methods</h2 id='methods'>
+<h3 id='methods/event-search'>Event Search</h3 id='methods/event-search'>
+<p>This method allows searching by a number of fields:
+
+</p>
+<ul>
+<li><code>state</code></li>
+<li><code>type</code></li>
+</ul>
+<p>This method also allows specifying an alternate output format, by specifying  <code>format=rss</code> or <code>format=ics</code>.
+
+</p>
+<p><strong>Example:</strong> <a href="#examples/event-search">openstates.org/api/v1/events/?state=ca</a>
+
+</p>
+<h3 id='methods/event-detail'>Event Detail</h3 id='methods/event-detail'>
+<p>This method returns an event object given an event id.
+
+</p>
+<p><strong>Example:</strong> <a href="#examples/event-detail">openstates.org/api/v1/events/TXE00026474/</a>
+
+</p>
+<h2 id='examples'>Examples</h2 id='examples'>
+<h3 id='examples/event-search'>Event Search</h3 id='examples/event-search'>
+<p><code>http://openstates.org/api/v1/events/?state=tx</code>
+
+</p>
+<pre><code class="json">[
+ {
+  "<span class="attribute">documents</span>": <span class="value">[]</span>, 
+  "<span class="attribute">end</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">description</span>": <span class="value"><span class="string">"Special Purpose Districts"</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"tx"</span></span>, 
+  "<span class="attribute">+agenda</span>": <span class="value"><span class="string">"HOUSE OF REPRESENTATIVES NOTICE OF FORMAL MEETING \u00a0 COMMITTEE:\u00a0\u00a0 Special Purpose Districts\u00a0 TIME &amp; DATE: During reading and referral of bills Thursday, March 21, 2013\u00a0 PLACE:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 3W.9\u00a0 CHAIR:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Rep. Dennis Bonnen\u00a0 \u00a0 \u00a0 Notice of this meeting was announced from the house floor."</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+  "<span class="attribute">when</span>": <span class="value"><span class="string">"2013-03-21 05:00:00"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+  "<span class="attribute">sources</span>": <span class="value">[
+   {
+    "<span class="attribute">url</span>": <span class="value"><span class="string">"http://www.capitol.state.tx.us/tlodocs/83R/schedules/html/C4482013032100001.HTM"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">participants</span>": <span class="value">[
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"committee"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"Special Purpose Districts"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXC000150"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"host"</span>
+   </span>}, 
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"legislator"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"Rep. Dennis Bonnen"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXL000223"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"chair"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">session</span>": <span class="value"><span class="string">"83"</span></span>, 
+  "<span class="attribute">location</span>": <span class="value"><span class="string">"3W.9\u00a0 "</span></span>, 
+  "<span class="attribute">related_bills</span>": <span class="value">[]</span>, 
+  "<span class="attribute">timezone</span>": <span class="value"><span class="string">"America/Chicago"</span></span>, 
+  "<span class="attribute">type</span>": <span class="value"><span class="string">"committee:meeting"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"TXE00026474"</span></span>, 
+  "<span class="attribute">+chamber</span>": <span class="value"><span class="string">"lower"</span>
+ </span>}, 
+ {
+  "<span class="attribute">documents</span>": <span class="value">[]</span>, 
+  "<span class="attribute">end</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">description</span>": <span class="value"><span class="string">"State Affairs"</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"tx"</span></span>, 
+  "<span class="attribute">+agenda</span>": <span class="value"><span class="string">"HOUSE OF REPRESENTATIVES NOTICE OF FORMAL MEETING \u00a0 COMMITTEE:\u00a0\u00a0 State Affairs\u00a0 TIME &amp; DATE: During reading and referral of bills Thursday, March 21, 2013\u00a0 PLACE:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Agricultural Museum, 1W.14\u00a0 CHAIR:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Rep. Byron Cook\u00a0 \u00a0 Notice of this meeting was announced from the House floor."</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+  "<span class="attribute">when</span>": <span class="value"><span class="string">"2013-03-21 05:00:00"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+  "<span class="attribute">sources</span>": <span class="value">[
+   {
+    "<span class="attribute">url</span>": <span class="value"><span class="string">"http://www.capitol.state.tx.us/tlodocs/83R/schedules/html/C4502013032100001.HTM"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">participants</span>": <span class="value">[
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"committee"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"State Affairs"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXC000022"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"host"</span>
+   </span>}, 
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"legislator"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"Rep. Byron Cook"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXL000236"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"chair"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">session</span>": <span class="value"><span class="string">"83"</span></span>, 
+  "<span class="attribute">location</span>": <span class="value"><span class="string">"Agricultural Museum, 1W.14\u00a0 "</span></span>, 
+  "<span class="attribute">related_bills</span>": <span class="value">[]</span>, 
+  "<span class="attribute">timezone</span>": <span class="value"><span class="string">"America/Chicago"</span></span>, 
+  "<span class="attribute">type</span>": <span class="value"><span class="string">"committee:meeting"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"TXE00026476"</span></span>, 
+  "<span class="attribute">+chamber</span>": <span class="value"><span class="string">"lower"</span>
+ </span>}, 
+ {
+  "<span class="attribute">documents</span>": <span class="value">[]</span>, 
+  "<span class="attribute">end</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">description</span>": <span class="value"><span class="string">"Defense &amp; Veterans' Affairs"</span></span>, 
+  "<span class="attribute">type</span>": <span class="value"><span class="string">"committee:meeting"</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-03-15 07:37:08"</span></span>, 
+  "<span class="attribute">related_bills</span>": <span class="value">[
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 846"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00024869"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 1348"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00025984"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 1832"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00026956"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 1939"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00027260"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 2387"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00028147"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 2392"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00028152"</span>
+   </span>}, 
+   {
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"consideration"</span></span>, 
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Bill up for discussion"</span></span>, 
+    "<span class="attribute">bill_id</span>": <span class="value"><span class="string">"HB 2071"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXB00027470"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">when</span>": <span class="value"><span class="string">"2013-03-21 13:00:00"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-21 08:03:49"</span></span>, 
+  "<span class="attribute">sources</span>": <span class="value">[
+   {
+    "<span class="attribute">url</span>": <span class="value"><span class="string">"http://www.capitol.state.tx.us/tlodocs/83R/schedules/html/C3052013032108001.HTM"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"tx"</span></span>, 
+  "<span class="attribute">session</span>": <span class="value"><span class="string">"83"</span></span>, 
+  "<span class="attribute">location</span>": <span class="value"><span class="string">"E2.012\u00a0 "</span></span>, 
+  "<span class="attribute">participants</span>": <span class="value">[
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"committee"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"Defense &amp; Veterans' Affairs"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXC000058"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"host"</span>
+   </span>}, 
+   {
+    "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+    "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"legislator"</span></span>, 
+    "<span class="attribute">participant</span>": <span class="value"><span class="string">"Rep. Jos\u00e9 Men\u00e9ndez"</span></span>, 
+    "<span class="attribute">id</span>": <span class="value"><span class="string">"TXL000312"</span></span>, 
+    "<span class="attribute">type</span>": <span class="value"><span class="string">"chair"</span>
+   </span>}
+  ]</span>, 
+  "<span class="attribute">timezone</span>": <span class="value"><span class="string">"America/Chicago"</span></span>, 
+  "<span class="attribute">+agenda</span>": <span class="value"><span class="string">"** REVISION **HOUSE OF REPRESENTATIVES NOTICE OF PUBLIC HEARING \u00a0 COMMITTEE:\u00a0\u00a0 Defense &amp; Veterans' Affairs\u00a0 TIME &amp; DATE: 8:00 AM, Thursday, March 21, 2013\u00a0 PLACE:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 E2.012\u00a0 CHAIR:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Rep. Jos\u00e9 Men\u00e9ndez\u00a0 \u00a0 HB 846\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Lucio III Relating to additional periods of possession of or access to a child after conclusion of a parent's military deployment. HB 1348\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Men\u00e9ndez\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Relating to the taxation of certain tangible personal property located inside a defense base development authority. HB 1832\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Miller, Rick\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Relating to granting certain local governments general zoning authority around certain military facilities; providing a penalty. HB 1939\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Orr\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Relating to a veteran's employment preference for employment with a public entity or public work of this state. HB 2387\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Men\u00e9ndez\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Relating to the taxation of certain tangible personal property located inside a defense base development authority. HB 2392\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Men\u00e9ndez\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Relating to the mental health program for veterans. \u00a0 \u00a0 Bills deleted after last posting: HB 2071 HCR 69 \u00a0 **\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 See Committee Coordinator for previous versions\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 ** of the schedule, if applicable. NOTICE OF ASSISTANCE AT PUBLIC MEETINGS Persons with disabilities who plan to attend this meeting and who may need assistance, such as a sign language interpreter, are requested to contact Stacey Nicchio at (512) 463-0850, 72 hours prior to the meeting so that appropriate arrangements can be made. \u00a0 To find information about electronic witness registration for a public hearing and to create a profile to be used when registering as a witness, please visit www.house.state.tx.us/resources/. Registration must be performed the day of the meeting and within the Capitol Complex."</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"TXE00026387"</span></span>, 
+  "<span class="attribute">+chamber</span>": <span class="value"><span class="string">"lower"</span>
+ </span>}, 
+ ...truncated...
+]</code></pre>
+<h3 id='examples/event-detail'>Event Detail</h3 id='examples/event-detail'>
+<p><code>http://openstates.org/api/v1/event/TXE00026474/</code>
+
+</p>
+<pre><code class="json">{
+ "<span class="attribute">+agenda</span>": <span class="value"><span class="string">"HOUSE OF REPRESENTATIVES NOTICE OF FORMAL MEETING \u00a0 COMMITTEE:\u00a0\u00a0 Special Purpose Districts\u00a0 TIME &amp; DATE: During reading and referral of bills Thursday, March 21, 2013\u00a0 PLACE:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 3W.9\u00a0 CHAIR:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 Rep. Dennis Bonnen\u00a0 \u00a0 \u00a0 Notice of this meeting was announced from the house floor."</span></span>, 
+ "<span class="attribute">+chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+ "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+ "<span class="attribute">description</span>": <span class="value"><span class="string">"Special Purpose Districts"</span></span>, 
+ "<span class="attribute">documents</span>": <span class="value">[]</span>, 
+ "<span class="attribute">end</span>": <span class="value"><span class="literal">null</span></span>, 
+ "<span class="attribute">id</span>": <span class="value"><span class="string">"TXE00026474"</span></span>, 
+ "<span class="attribute">location</span>": <span class="value"><span class="string">"3W.9\u00a0 "</span></span>, 
+ "<span class="attribute">participants</span>": <span class="value">[
+  {
+   "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+   "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"committee"</span></span>, 
+   "<span class="attribute">participant</span>": <span class="value"><span class="string">"Special Purpose Districts"</span></span>, 
+   "<span class="attribute">id</span>": <span class="value"><span class="string">"TXC000150"</span></span>, 
+   "<span class="attribute">type</span>": <span class="value"><span class="string">"host"</span>
+  </span>}, 
+  {
+   "<span class="attribute">chamber</span>": <span class="value"><span class="string">"lower"</span></span>, 
+   "<span class="attribute">participant_type</span>": <span class="value"><span class="string">"legislator"</span></span>, 
+   "<span class="attribute">participant</span>": <span class="value"><span class="string">"Rep. Dennis Bonnen"</span></span>, 
+   "<span class="attribute">id</span>": <span class="value"><span class="string">"TXL000223"</span></span>, 
+   "<span class="attribute">type</span>": <span class="value"><span class="string">"chair"</span>
+  </span>}
+ ]</span>, 
+ "<span class="attribute">related_bills</span>": <span class="value">[]</span>, 
+ "<span class="attribute">session</span>": <span class="value"><span class="string">"83"</span></span>, 
+ "<span class="attribute">sources</span>": <span class="value">[
+  {
+   "<span class="attribute">url</span>": <span class="value"><span class="string">"http://www.capitol.state.tx.us/tlodocs/83R/schedules/html/C4482013032100001.HTM"</span>
+  </span>}
+ ]</span>, 
+ "<span class="attribute">state</span>": <span class="value"><span class="string">"tx"</span></span>, 
+ "<span class="attribute">timezone</span>": <span class="value"><span class="string">"America/Chicago"</span></span>, 
+ "<span class="attribute">type</span>": <span class="value"><span class="string">"committee:meeting"</span></span>, 
+ "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-24 08:38:18"</span></span>, 
+ "<span class="attribute">when</span>": <span class="value"><span class="string">"2013-03-21 05:00:00"</span>
+</span>}</code></pre>
+
+  </div>
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'na']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
