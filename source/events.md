@@ -26,7 +26,7 @@ The following fields are available on event objects:
 
 * ``id``        Open States assigned event ID.
 * ``state``     State abbreviation.
-* ``type``      [Categorized event type.](TODO- categorization link here)
+* ``type``      Categorized event type.  ('committee:meeting' for now)
 * ``description``   Description of event from state source.
 * ``documents``     List of related documents.
 * ``location``      Location if known, as given by state (is often just a room number).
@@ -38,7 +38,7 @@ The following fields are available on event objects:
     * ``type``      Type of participants ('legislator', 'committee')
     * ``participant`` String representation of participant (e.g. 'Housing Committee', 'Jill Smith')
     * ``id``        Open States id for participant if a match was found (e.g. 'TXC000150', 'MDL000101')
-    * ``type``      What role this participant played (e.g. 'host', 'speaker', etc.).
+    * ``type``      What role this participant played (will be 'host', 'chair', 'participant').
 * ``related_bills`` List of related bills for this event.  Comprised of the following fields:
     * ``type``        Type of relationship (e.g. 'consideration')
     * ``description`` Description of how the bill is related given by the state.
