@@ -1,6 +1,3 @@
-Open States API
-===============
-
 Open States provides a JSON API for accessing state legislative information.
 
 Basics
