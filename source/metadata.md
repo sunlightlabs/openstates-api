@@ -61,7 +61,7 @@ Methods
 
 ### Metadata Overview
 
-This method returns just a subset (``abbreviation``, ``state``, ``chambers``, ``feature_flags``) of metadata across all available entities.
+This method returns just a subset (``abbreviation``, ``name``, ``chambers``, ``feature_flags``) of metadata across all available entities.
 
 **Example:** [openstates.org/api/v1/metadata/](#examples/metadata-overview)
 
