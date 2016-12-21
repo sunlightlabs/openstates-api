@@ -3,10 +3,10 @@ Open States provides a JSON API for accessing state legislative information.
 Basics
 ------
 
-* All API calls are URLs in the form ``http://openstates.org/api/v1/METHOD/``
+* **For the time being please pass the email address where we can contact you as the apikey parameter, we'll be turning API keys back on in the near future.** 
+* All API calls are URLs in the form ``https://openstates.org/api/v1/METHOD/``
 * Responses are [JSON](http://json.org) unless otherwise specified.
 * If an error occurs the response will be a plain text error message with an appropriate HTTP error code (404 if object is not found, 401 if authentication fails, etc.).
-* An API key is required to be passed as request parameter ``apikey``.   A key can be obtained via http://services.sunlightlabs.com/
 * All changes to the API will be announced on the [Open States Google Group](http://groups.google.com/group/fifty-state-project/).  It is recommended you subscribe if you're using the API.
 * For Python users, there's an official [python-sunlight](http://python-sunlight.readthedocs.org) package available with full support.
 

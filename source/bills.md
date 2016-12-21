@@ -37,20 +37,20 @@ The following fields are available on bill objects:
     * ``date`` Date of action.
     * ``action`` Name of action as state provides it.
     * ``actor`` The chamber, person, committee, etc. responsible for this action.
-    * ``type`` Open States-provided action categories, see [action categorization](https://github.com/sunlightlabs/openstates/wiki/Categorization#action-types).
+    * ``type`` Open States-provided action categories, see [action categorization](https://github.com/openstates/openstates/wiki/Categorization#action-types).
 * ``chamber`` The chamber of origination ('upper' or 'lower')
 * ``created_at`` The date that this object first appeared in our system.  (Note: not the date of introduction, see ``action_dates`` for that information.)
 * ``updated_at`` The date that this object was last updated in our system. (Note: not the last action date, see ``action_dates`` for that information.)
 * ``documents`` List of associated documents, see ``versions`` for field details.
 * ``id`` Open States-assigned permanent ID for this bill.
 * ``scraped_subjects`` List of subject areas that the state categorized this bill under.
-* ``subjects`` List of Open States standardized bill subjects, see [subject categorization](https://github.com/sunlightlabs/openstates/wiki/Categorization#subjects).
+* ``subjects`` List of Open States standardized bill subjects, see [subject categorization](https://github.com/openstates/openstates/wiki/Categorization#subjects).
 * ``sources`` List of source URLs used to compile information on this object.
 * ``sponsors`` List of bill sponsors.
     * ``name`` Name of sponsor as it appears on state website.
     * ``leg_id`` Open States assigned legislator ID (will be null if no match was found).
     * ``type`` Type of sponsor ('primary' or 'cosponsor')
-* ``type``      List of [bill types](https://github.com/sunlightlabs/openstates/wiki/Categorization#bill-types).
+* ``type``      List of [bill types](https://github.com/openstates/openstates/wiki/Categorization#bill-types).
 * ``versions``  Versions of the bill text.  Both documents and `versions` have the following fields:
     * ``url`` Official URL for this document.
     * ``name`` An official name for this document.
