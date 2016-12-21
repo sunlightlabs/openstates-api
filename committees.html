@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open States API | Committees</title>
+    
+    
+  <link rel="shortcut icon" type="image/ico" href="http://s3.amazonaws.com/assets.sunlightfoundation.com/brisket/1.0/images/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="documentup.css">
+  <script type="text/javascript" src="//use.typekit.net/blp6kvr.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+  <body><div class="sf-header"><div class="container"><a class="sf-logo" href="http://www.sunlightfoundation.com">Sunlight Foundation</a></div></div><div id="container">
+  <div id="nav">
+    
+      <div id="header">
+        <h1><a href="index.html" id="logo">Open States API</a>
+      </div>
+    
+    <ul id="sections">
+      
+        <li>
+          <a href="#committee-fields">Committee Fields</a>
+          
+        </li>
+      
+        <li>
+          <a href="#methods">Methods</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#methods/committee-search">Committee Search</a>
+                </li>
+              
+                <li>
+                  <a href="#methods/committee-detail">Committee Detail</a>
+                </li>
+              
+            </ul>
+            
+      <li>
+        <a href="http://tryit.sunlightfoundation.com/openstates">Try out the API</a> in your browser.
+      </li>
+          
+        </li>
+      
+        <li>
+          <a href="#examples">Examples</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#examples/committee-search">Committee Search</a>
+                </li>
+              
+                <li>
+                  <a href="#examples/committee-detail">Committee Detail</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+    
+    
+      <div class="extra twitter">
+        <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=openstates&show_count=false"></iframe></div><div class="thanks">powered by <a href="http://documentup.com">DocumentUp</a></div>
+    
+  </div>
+  <div id="content">
+    
+    <h1>Committees</h1>
+<p>There are two methods available for committee data:
+
+</p>
+<table>
+<tr> <th> Method </th> <th> URL pattern </th> <th> Description </th> </tr>
+<tr>
+    <td> <a href="#methods/committee-search">Committee Search</a> </td>
+    <td> /committees/ </td>
+    <td> Search committees by any of their attributes.  </td>
+</tr>
+<tr>
+    <td> <a href="#methods/committee-detail">Committee Detail</a> </td>
+    <td> /committees/<code>committee_id</code>/ </td>
+    <td> Get full detail for committee, including all members. </td>
+</tr>
+</table>
+
+<h2 id='committee-fields'>Committee Fields</h2 id='committee-fields'>
+<p>The following fields are available on committee objects:
+
+</p>
+<ul>
+<li><code>id</code>        Open States assigned committee ID.</li>
+<li><code>state</code>     State abbreviation.</li>
+<li><code>chamber</code>   Chamber committee belongs to: &#39;upper&#39;, &#39;lower&#39;, &#39;joint&#39;.</li>
+<li><code>committee</code> Name of committee.</li>
+<li><code>subcommittee</code> Name of subcommittee. (if null, object describes the <code>committee</code>)</li>
+<li><code>parent_id</code> Committee id pointing to the parent committee if this is a subcommittee.</li>
+<li><code>sources</code>   List of URLs used in gathering information for this legislator.</li>
+<li><code>created_at</code> The date that this object first appeared in our system.</li>
+<li><code>updated_at</code> The date that this object was last updated in our system.</li>
+<li><code>members</code>    List of member objects, each has the following keys:<ul>
+<li><code>name</code>      Name of legislator as provided by state source.</li>
+<li><code>leg_id</code>    Open States-assigned legislator id.  (null if no match found).</li>
+<li><code>role</code>      Member&#39;s role on the committee (e.g. &#39;chair&#39;, &#39;vice-chair&#39;, default role is &#39;member&#39;)</li>
+</ul>
+</li>
+</ul>
+<h2 id='methods'>Methods</h2 id='methods'>
+<h3 id='methods/committee-search'>Committee Search</h3 id='methods/committee-search'>
+<p>This method allows searching by a number of fields:
+
+</p>
+<ul>
+<li><code>committee</code></li>
+<li><code>subcommittee</code></li>
+<li><code>chamber</code></li>
+<li><code>state</code></li>
+</ul>
+<p>Committee objects returned by this method do not include the list of members by default.
+
+</p>
+<p><strong>Example:</strong> <a href="#examples/committee-search">openstates.org/api/v1/committees/?state=dc</a>
+
+</p>
+<h3 id='methods/committee-detail'>Committee Detail</h3 id='methods/committee-detail'>
+<p>This method returns the full committee object given a committee id.
+
+</p>
+<p><strong>Example:</strong> <a href="#examples/committee-detail">openstates.org/api/v1/committees/DCC000029/</a>
+
+</p>
+<h2 id='examples'>Examples</h2 id='examples'>
+<h3 id='examples/committee-search'>Committee Search</h3 id='examples/committee-search'>
+<p><code>http://openstates.org/api/v1/committees/?state=dc</code>
+
+</p>
+<pre><code class="json">[
+ { "<span class="attribute">level</span>": <span class="value"><span class="string">"state"</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2011-11-09 02:43:35"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-27 03:23:42"</span></span>, 
+  "<span class="attribute">parent_id</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"dc"</span></span>, 
+  "<span class="attribute">subcommittee</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">committee</span>": <span class="value"><span class="string">"Finance and Revenue"</span></span>, 
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"upper"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"DCC000017"</span> </span>}, 
+ { "<span class="attribute">level</span>": <span class="value"><span class="string">"state"</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2011-11-09 02:43:35"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-06 02:18:33"</span></span>, 
+  "<span class="attribute">parent_id</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"dc"</span></span>, 
+  "<span class="attribute">subcommittee</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">committee</span>": <span class="value"><span class="string">"Subcommittee on Redistricting 2011"</span></span>, 
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"upper"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"DCC000025"</span> </span>}, 
+ { "<span class="attribute">chamber</span>": <span class="value"><span class="string">"upper"</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-01-07 21:05:11"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-27 03:23:42"</span></span>, 
+  "<span class="attribute">parent_id</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"dc"</span></span>, 
+  "<span class="attribute">subcommittee</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">committee</span>": <span class="value"><span class="string">"Business, Consumer and Regulatory Affairs"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"DCC000029"</span> </span>}, 
+ { "<span class="attribute">level</span>": <span class="value"><span class="string">"state"</span></span>, 
+  "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2011-11-09 02:43:35"</span></span>, 
+  "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-27 03:23:41"</span></span>, 
+  "<span class="attribute">parent_id</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">state</span>": <span class="value"><span class="string">"dc"</span></span>, 
+  "<span class="attribute">subcommittee</span>": <span class="value"><span class="literal">null</span></span>, 
+  "<span class="attribute">committee</span>": <span class="value"><span class="string">"Human Services"</span></span>, 
+  "<span class="attribute">chamber</span>": <span class="value"><span class="string">"upper"</span></span>, 
+  "<span class="attribute">id</span>": <span class="value"><span class="string">"DCC000014"</span> </span>}, 
+  ...truncated...
+]</code></pre>
+<h3 id='examples/committee-detail'>Committee Detail</h3 id='examples/committee-detail'>
+<p><code>http://openstates.org/api/v1/committees/DCC000029/</code>
+
+</p>
+<pre><code class="json">{
+ "<span class="attribute">chamber</span>": <span class="value"><span class="string">"upper"</span></span>, 
+ "<span class="attribute">committee</span>": <span class="value"><span class="string">"Business, Consumer and Regulatory Affairs"</span></span>, 
+ "<span class="attribute">created_at</span>": <span class="value"><span class="string">"2013-01-07 21:05:11"</span></span>, 
+ "<span class="attribute">id</span>": <span class="value"><span class="string">"DCC000029"</span></span>, 
+ "<span class="attribute">members</span>": <span class="value">[
+  {
+   "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"DCL000014"</span></span>, 
+   "<span class="attribute">role</span>": <span class="value"><span class="string">"chairperson"</span></span>, 
+   "<span class="attribute">name</span>": <span class="value"><span class="string">"Vincent Orange"</span>
+  </span>}, 
+  {
+   "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"DCL000020"</span></span>, 
+   "<span class="attribute">role</span>": <span class="value"><span class="string">"member"</span></span>, 
+   "<span class="attribute">name</span>": <span class="value"><span class="string">"David Grosso"</span>
+  </span>}, 
+  {
+   "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"DCL000007"</span></span>, 
+   "<span class="attribute">role</span>": <span class="value"><span class="string">"member"</span></span>, 
+   "<span class="attribute">name</span>": <span class="value"><span class="string">"Jim Graham"</span>
+  </span>}, 
+  {
+   "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"DCL000002"</span></span>, 
+   "<span class="attribute">role</span>": <span class="value"><span class="string">"member"</span></span>, 
+   "<span class="attribute">name</span>": <span class="value"><span class="string">"Mary M. Cheh"</span>
+  </span>}, 
+  {
+   "<span class="attribute">leg_id</span>": <span class="value"><span class="string">"DCL000010"</span></span>, 
+   "<span class="attribute">role</span>": <span class="value"><span class="string">"member"</span></span>, 
+   "<span class="attribute">name</span>": <span class="value"><span class="string">"Yvette Alexander"</span>
+  </span>}
+ ]</span>, 
+ "<span class="attribute">parent_id</span>": <span class="value"><span class="literal">null</span></span>, 
+ "<span class="attribute">sources</span>": <span class="value">[ { "<span class="attribute">url</span>": <span class="value"><span class="string">"http://dccouncil.us/committees/committee-on-business-consumer-and-regulatory-affairs"</span> </span>} ]</span>, 
+ "<span class="attribute">state</span>": <span class="value"><span class="string">"dc"</span></span>, 
+ "<span class="attribute">subcommittee</span>": <span class="value"><span class="literal">null</span></span>, 
+ "<span class="attribute">updated_at</span>": <span class="value"><span class="string">"2013-03-27 03:23:42"</span>
+</span>}</code></pre>
+
+  </div>
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'na']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>
